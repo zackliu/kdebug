@@ -22,6 +22,7 @@ type ToolContext struct {
 	Tcpdump          Tcpdump
 	VmRebootDetector VMRebootDetector
 	Connectivity     Connectivity
+	KubeClient       *kubernetes.Clientset
 }
 
 type VMRebootDetector struct {
@@ -37,9 +38,10 @@ type Tcpdump struct {
 }
 
 type Connectivity struct {
-	Pid     string `short:"p" long:"pid" description:"Attach into a specific pid's network namespace."`
+	Pid     string `long:"pid" description:"Attach into a specific pid's network namespace."`
 	PodName string `long:"pod" description:"Attach into a specific pod's network namespace. Caution: The command will use ephemeral debug container to attach a container with 'ghcr.io/azure/kdebug:main' to the target pod."`
-	Command string `long:"manual" description:"Customize the command to be run in container namespace. Leave it blank to run default check."`
+	Command string `long:"command" description:"Customize the command to be run in container namespace. Leave it blank to run default check."`
+	Image   string `long:"image" description:"Customize the image to be used to run command when using --connectivity.pod. Leave it blank to use busybox."`
 }
 
 type CheckResult struct {

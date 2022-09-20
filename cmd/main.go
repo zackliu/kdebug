@@ -44,6 +44,7 @@ type Options struct {
 
 	Tcpdump        base.Tcpdump          `group:"tcpdump" namespace:"tcpdump" description:"Tool mode: tcpdump"`
 	VMRebootDetect base.VMRebootDetector `group:"vmrebootdetector" namespace:"vmrebootdetector" description:"Tool mode: vm reboot detector"`
+	Connectivity   base.Connectivity     `group:"connectivity" namespace:"connectivity" description:"Tool mode: network connectivity tool"`
 }
 
 func (o *Options) IsBatchMode() bool {
@@ -104,6 +105,10 @@ func buildToolContext(opts *Options) (*base.ToolContext, error) {
 	ctx := &base.ToolContext{}
 	ctx.Tcpdump = opts.Tcpdump
 	ctx.VmRebootDetector = opts.VMRebootDetect
+	ctx.Connectivity = opts.Connectivity
+	if kubeClient, err := buildKubeClient(opts.KubeMasterUrl, opts.KubeConfigPath); err == nil {
+		ctx.KubeClient = kubeClient
+	}
 
 	return ctx, nil
 }
