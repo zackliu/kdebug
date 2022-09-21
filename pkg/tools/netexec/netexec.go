@@ -117,8 +117,9 @@ func (c *NetexecTool) checkWithPid() error {
 }
 
 func (c *NetexecTool) checkWithPod(configFlags *genericclioptions.ConfigFlags) error {
-	arg := strings.Fields(fmt.Sprintf("%s%s", fmt.Sprintf(DefaultKubectlBasicCommandFormat, c.podName, c.image, c.namespace), c.command))
-	fmt.Print(arg)
+	cmd := fmt.Sprintf("%s%s", fmt.Sprintf(DefaultKubectlBasicCommandFormat, c.podName, c.image, c.namespace), c.command)
+	arg := strings.Fields(cmd)
+	log.Infof("The command is equivalent to 'kubectl %s'", cmd)
 	kubectlCmd := kubecmd.NewKubectlCommand(kubecmd.KubectlOptions{
 		ConfigFlags: configFlags,
 		IOStreams:   genericclioptions.IOStreams{In: os.Stdin, Out: os.Stdout, ErrOut: os.Stderr},

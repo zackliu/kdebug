@@ -45,7 +45,7 @@ type Options struct {
 
 	Tcpdump        base.Tcpdump          `group:"tcpdump" namespace:"tcpdump" description:"Tool mode: tcpdump"`
 	VMRebootDetect base.VMRebootDetector `group:"vmrebootdetector" namespace:"vmrebootdetector" description:"Tool mode: vm reboot detector"`
-	Netexec        base.Netexec          `group:"netexec" namespace:"netexec" description:"Tool mode: network netexec tool"`
+	Netexec        base.Netexec          `group:"netexec" namespace:"netexec" description:"Tool mode: Execute command in the same network namespace of pod or process"`
 }
 
 func (o *Options) IsBatchMode() bool {
